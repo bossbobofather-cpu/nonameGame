@@ -2,7 +2,8 @@
   "name": "NoName.Unity",
   "references": [
     "NoName.Core",
-    "NoName.Game"
+    "NoName.Game",
+    "Unity.InputSystem"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

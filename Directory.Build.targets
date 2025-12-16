@@ -1,0 +1,10 @@
+<Project>
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'NoName.Core' And Exists('Assets\\NoName\\Core\\Compatibility\\IsExternalInit.cs')">
+    <Compile Remove="Assets\\NoName\\Core\\Compatibility\\IsExternalInit.cs" />
+    <Compile Include="Assets\\NoName\\Core\\Compatibility\\IsExternalInit.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'NoName.Unity' And Exists('Unity.InputSystem.csproj')">
+    <ProjectReference Include="Unity.InputSystem.csproj" />
+  </ItemGroup>
+</Project>

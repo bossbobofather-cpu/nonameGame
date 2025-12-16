@@ -8,12 +8,11 @@ namespace NoName.Unity.StaticData
 	[CreateAssetMenu(menuName = "NoName/Static Data/Card Catalog", fileName = "CardCatalog")]
 	public sealed class CardCatalogAsset : ScriptableObject
 	{
-		[SerializeField] private CardDefinitionAsset[] _cards = System.Array.Empty<CardDefinitionAsset>();
+		[SerializeField] private CardDefinitionAssetBase[] _cards = System.Array.Empty<CardDefinitionAssetBase>();
 
 		/// <summary>
 		/// 게임에 존재하는 모든 카드 정의입니다.
 		/// </summary>
-		public CardDefinitionAsset[] Cards => _cards;
+		public CardDefinitionAssetBase[] Cards => _cards;
 	}
 }
-

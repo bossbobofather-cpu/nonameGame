@@ -1,4 +1,3 @@
-using NoName.Core.Cards;
 using NoName.Unity.StaticData;
 using UnityEditor;
 using UnityEngine;
@@ -25,25 +24,23 @@ namespace NoName.Editor
 			var warrior = CreateOrReplaceCharacter($"{DataRoot}/CharacterDefinition_Warrior.asset", "character_warrior", "워리어", 100);
 			var archer = CreateOrReplaceCharacter($"{DataRoot}/CharacterDefinition_Archer.asset", "character_archer", "아처", 70);
 
-			var warriorCard = CreateOrReplaceCard(
+			var warriorCard = CreateOrReplaceCharacterCard(
 				$"{DataRoot}/CardDefinition_Warrior.asset",
 				"card_character_warrior",
 				"워리어 카드",
-				CardType.Character,
 				1,
 				warrior
 			);
 
-			var archerCard = CreateOrReplaceCard(
+			var archerCard = CreateOrReplaceCharacterCard(
 				$"{DataRoot}/CardDefinition_Archer.asset",
 				"card_character_archer",
 				"아처 카드",
-				CardType.Character,
 				1,
 				archer
 			);
 
-			var catalog = CreateOrReplaceCatalog($"{DataRoot}/CardCatalog.asset", new[] { warriorCard, archerCard });
+			var catalog = CreateOrReplaceCatalog($"{DataRoot}/CardCatalog.asset", new CardDefinitionAssetBase[] { warriorCard, archerCard });
 			CreateOrReplaceSettings(SettingsPath, catalog);
 
 			AssetDatabase.SaveAssets();
@@ -68,23 +65,21 @@ namespace NoName.Editor
 			return asset;
 		}
 
-		private static CardDefinitionAsset CreateOrReplaceCard(
+		private static CharacterCardDefinitionAsset CreateOrReplaceCharacterCard(
 			string assetPath,
 			string id,
 			string displayName,
-			CardType type,
 			int cost,
 			CharacterDefinitionAsset? character)
 		{
 			AssetDatabase.DeleteAsset(assetPath);
 
-			var asset = ScriptableObject.CreateInstance<CardDefinitionAsset>();
+			var asset = ScriptableObject.CreateInstance<CharacterCardDefinitionAsset>();
 			AssetDatabase.CreateAsset(asset, assetPath);
 
 			var so = new SerializedObject(asset);
 			so.FindProperty("_id").stringValue = id;
 			so.FindProperty("_displayName").stringValue = displayName;
-			so.FindProperty("_type").enumValueIndex = (int)type;
 			so.FindProperty("_cost").intValue = cost;
 			so.FindProperty("_character").objectReferenceValue = character;
 			so.ApplyModifiedPropertiesWithoutUndo();
@@ -92,7 +87,7 @@ namespace NoName.Editor
 			return asset;
 		}
 
-		private static CardCatalogAsset CreateOrReplaceCatalog(string assetPath, CardDefinitionAsset[] cards)
+		private static CardCatalogAsset CreateOrReplaceCatalog(string assetPath, CardDefinitionAssetBase[] cards)
 		{
 			AssetDatabase.DeleteAsset(assetPath);
 

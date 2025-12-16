@@ -53,12 +53,27 @@ namespace NoName.Unity.Runtime
 				_cardDefinitions.Add(definition);
 				_cardDefinitionsById.Add(definition.Id, definition);
 
-				if (definition.Type != CardType.Character || cardAsset.Character == null)
+				if (definition.Type != CardType.Character)
 				{
 					continue;
 				}
 
-				var characterDefinition = cardAsset.Character.ToDefinition();
+				CharacterDefinitionAsset? characterAsset = null;
+				if (cardAsset is CharacterCardDefinitionAsset characterCard)
+				{
+					characterAsset = characterCard.Character;
+				}
+				else if (cardAsset is CardDefinitionAsset legacyCard)
+				{
+					characterAsset = legacyCard.Character;
+				}
+
+				if (characterAsset == null)
+				{
+					continue;
+				}
+
+				var characterDefinition = characterAsset.ToDefinition();
 				if (string.IsNullOrWhiteSpace(characterDefinition.Id) || _characterDefinitionsById.ContainsKey(characterDefinition.Id))
 				{
 					continue;
@@ -114,4 +129,3 @@ namespace NoName.Unity.Runtime
 		}
 	}
 }
-

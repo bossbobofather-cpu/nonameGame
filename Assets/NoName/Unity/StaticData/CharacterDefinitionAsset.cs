@@ -11,6 +11,8 @@ namespace NoName.Unity.StaticData
 	{
 		[SerializeField] private string _id = string.Empty;
 		[SerializeField] private string _displayName = string.Empty;
+
+		[SerializeField] private GameObject _modelPrefab = null!;
 		[SerializeField] private int _maxHp = 1;
 
 		/// <summary>
@@ -22,6 +24,11 @@ namespace NoName.Unity.StaticData
 		/// 표시 이름입니다.
 		/// </summary>
 		public string DisplayName => _displayName;
+
+		/// <summary>
+		/// 모델 프리팹입니다.
+		/// </summary>
+		public GameObject ModelPrefab => _modelPrefab;
 
 		/// <summary>
 		/// 최대 HP 입니다.
@@ -37,4 +44,3 @@ namespace NoName.Unity.StaticData
 		}
 	}
 }
-

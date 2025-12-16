@@ -71,7 +71,7 @@ namespace NoName.UI
 			_cardListViewModel = new CardListViewModel(services.CardInventory, services.StaticData);
 			_cardListViewModel.ItemsChanged += HandleCardListChanged;
 
-			_cardListView.itemsSource = _cardListViewModel.Items;
+			_cardListView.itemsSource = (System.Collections.IList)_cardListViewModel.Items;
 			_cardListView.selectionType = SelectionType.Single;
 			_cardListView.makeItem = MakeCardItem;
 			_cardListView.bindItem = BindCardItem;
